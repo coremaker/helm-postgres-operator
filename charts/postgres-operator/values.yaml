@@ -1,0 +1,30 @@
+nameOverride:
+fullnameOverride:
+
+crds:
+  install: true
+
+rbac:
+  create: true
+
+controller:
+  replicas: 1
+  container:
+    image:
+      repository: europe-docker.pkg.dev/coremaker/eu.gcr.io/postgres-operator
+      tag: v1.0.5
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+
+    logging:
+      log_level: info
+      encoder: json
+      stacktrace_level: panic
+
+serviceAccount:
+  create: true

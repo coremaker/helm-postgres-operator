@@ -1,0 +1,111 @@
+{{- if .Values.crds.install }}
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: postgresschemas.postgres.coremaker.io
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.9.2
+  labels:
+  {{- include "chart.labels" . | nindent 4 }}
+spec:
+  group: postgres.coremaker.io
+  names:
+    kind: PostgresSchema
+    listKind: PostgresSchemaList
+    plural: postgresschemas
+    singular: postgresschema
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Phase
+      type: string
+    - jsonPath: .status.status
+      name: Status
+      type: string
+    - jsonPath: .spec.deletionProtection
+      name: Protected
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: PostgresSchema is the Schema for the postgresschemas API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: PostgresSchemaSpec defines the desired state of PostgresSchema
+            properties:
+              database:
+                description: Database is the name of the resource holding credentials
+                properties:
+                  name:
+                    description: Name is the name of the database resource
+                    type: string
+                  namespace:
+                    description: Namespace is the namespace the database resource exists
+                      in
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+              deletionProtection:
+                description: Skip deleting the schema after resource is changed/deleted
+                type: boolean
+              ownerRole:
+                description: OwnerRole is the role specification for Authorization to
+                  be added on the schema
+                type: string
+              schemaName:
+                description: SchemaName is the name of the schema to be created
+                type: string
+            required:
+            - database
+            - schemaName
+            type: object
+          status:
+            description: PostgresSchemaStatus defines the observed state of PostgresSchema
+            properties:
+              deletionProtection:
+                type: boolean
+              ownerRole:
+                type: string
+              phase:
+                type: string
+              schemaName:
+                type: string
+              status:
+                type: string
+            required:
+            - deletionProtection
+            - ownerRole
+            - phase
+            - schemaName
+            - status
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
+{{- end}}

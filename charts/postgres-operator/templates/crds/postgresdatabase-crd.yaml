@@ -1,0 +1,98 @@
+{{- if .Values.crds.install }}
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: postgresdatabases.postgres.coremaker.io
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.9.2
+  labels:
+  {{- include "chart.labels" . | nindent 4 }}
+spec:
+  group: postgres.coremaker.io
+  names:
+    kind: PostgresDatabase
+    listKind: PostgresDatabaseList
+    plural: postgresdatabases
+    singular: postgresdatabase
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.status
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: PostgresDatabase is the Schema for the postgresdatabases API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: PostgresDatabaseSpec defines the desired state of PostgresDatabase
+            properties:
+              database:
+                description: Database name to connect to
+                type: string
+              host:
+                description: Host should contain the instance ip address
+                type: string
+              instanceSecretRef:
+                description: InstanceSecretRef is a reference to the secret containing
+                  connection details to the instance
+                properties:
+                  secretName:
+                    description: SecretName is the name of the secret containing the
+                      connection details
+                    type: string
+                  userNameKey:
+                    description: UserNameKey is the name of the field in the secret
+                      containing the username
+                    type: string
+                  userPasswordKey:
+                    description: UserPasswordKey is the name of the field in the secret
+                      containing the password
+                    type: string
+                required:
+                - secretName
+                type: object
+              port:
+                description: Port should contain the instance port
+                type: integer
+            required:
+            - database
+            - instanceSecretRef
+            type: object
+          status:
+            description: PostgresDatabaseStatus defines the observed state of PostgresDatabase
+            properties:
+              status:
+                type: string
+            required:
+            - status
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
+
+{{- end}}
