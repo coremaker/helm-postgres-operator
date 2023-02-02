@@ -24,6 +24,12 @@ spec:
         - --zap-encoder={{ .Values.controller.container.logging.encoder }}
         - --zap-stacktrace-level={{ .Values.controller.container.logging.stacktrace_level }}
         env:
+        - name: DATABASE_RECONCILER_TIMER
+          value: {{ .Values.controller.timers.databaseReconciler }}
+        - name: USER_RECONCILER_TIMER
+          value: {{ .Values.controller.timers.userReconciler }}
+        - name: SCHEMA_RECONCILER_TIMER
+          value: {{ .Values.controller.timers.schemaReconciler }}
         - name: RUNTIME_NAMESPACE
           valueFrom:
             fieldRef:

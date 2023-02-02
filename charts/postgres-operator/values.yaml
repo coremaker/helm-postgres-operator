@@ -26,5 +26,12 @@ controller:
       encoder: json
       stacktrace_level: panic
 
+  # How often the controllers should reconcile
+  # https://github.com/coremaker/postgres-operator/blob/eb06156200a5d8dedd819b55face46dcf2a629dc/main.go#L70
+  timers:
+    databaseReconciler: 300s
+    userReconciler: 300s
+    schemaReconciler: 300s
+
 serviceAccount:
   create: true
