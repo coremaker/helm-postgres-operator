@@ -27,7 +27,7 @@ To uninstall the chart:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | controller.container.image.repository | string | `"europe-docker.pkg.dev/coremaker/eu.gcr.io/postgres-operator"` |  |
-| controller.container.image.tag | string | `"v1.0.5"` |  |
+| controller.container.image.tag | string | `"v1.0.8"` |  |
 | controller.container.logging.encoder | string | `"json"` |  |
 | controller.container.logging.log_level | string | `"info"` |  |
 | controller.container.logging.stacktrace_level | string | `"panic"` |  |

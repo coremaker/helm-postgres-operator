@@ -32,6 +32,8 @@ controller:
     databaseReconciler: 300s
     userReconciler: 300s
     schemaReconciler: 300s
-
+  
 serviceAccount:
   create: true
+
+sidecarContainers: []
