@@ -37,3 +37,5 @@ serviceAccount:
   create: true
 
 sidecarContainers: []
+
+additionalVolumes: []
