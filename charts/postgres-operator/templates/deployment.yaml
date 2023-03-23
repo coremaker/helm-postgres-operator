@@ -18,6 +18,9 @@ spec:
       {{- include "chart.selectorLabels" . | nindent 8 }}
     spec:
       containers:
+{{- if .Values.sidecarContainers }}
+{{- toYaml .Values.sidecarContainers | nindent 6 }}
+{{- end }}
       - args:
         - --leader-elect
         - --zap-log-level={{ .Values.controller.container.logging.log_level }}
@@ -63,6 +66,7 @@ spec:
         fsGroup: 1337
       serviceAccountName: {{ include "chart.fullname" . }}
       terminationGracePeriodSeconds: 600
-{{- if .Values.sidecarContainers }}
-{{- toYaml .Values.sidecarContainers | nindent 8 }}
+      volumes:
+{{- if .Values.additionalVolumes }}
+{{ toYaml .Values.additionalVolumes | indent 6 }}
 {{- end }}
