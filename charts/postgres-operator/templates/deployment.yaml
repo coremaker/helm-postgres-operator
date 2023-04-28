@@ -65,6 +65,7 @@ spec:
             type: RuntimeDefault
       securityContext:
         fsGroup: 1337
+        runAsNonRoot: true
       serviceAccountName: {{ include "chart.fullname" . }}
       terminationGracePeriodSeconds: 600
       volumes:
