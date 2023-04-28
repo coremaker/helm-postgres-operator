@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   postgres-operator:
   - apiVersion: v2
+    appVersion: 1.0.6
+    created: "2023-04-28T11:00:42.832300924Z"
+    description: A Helm chart for postgres-operator
+    digest: b32231874ec173db18bdc173919ba3290f1e7934966bc57c3883db80b76813b6
+    name: postgres-operator
+    type: application
+    urls:
+    - https://github.com/coremaker/helm-postgres-operator/releases/download/postgres-operator-1.0.6/postgres-operator-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
     appVersion: 1.0.5
     created: "2023-04-28T08:41:51.50657785Z"
     description: A Helm chart for postgres-operator
@@ -61,4 +71,4 @@ entries:
     urls:
     - https://github.com/coremaker/helm-postgres-operator/releases/download/postgres-operator-1.0.0/postgres-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2023-04-28T08:41:51.506620058Z"
+generated: "2023-04-28T11:00:42.832407726Z"
