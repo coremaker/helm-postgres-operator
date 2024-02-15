@@ -56,8 +56,8 @@ spec:
                     description: Name is the name of the database resource
                     type: string
                   namespace:
-                    description: Namespace is the namespace the database resource exists
-                      in
+                    description: Namespace is the namespace the database resource
+                      exists in
                     type: string
                 required:
                 - name
@@ -67,16 +67,23 @@ spec:
                 description: Skip deleting the user after resource is changed/deleted
                 type: boolean
               passwordSecretRef:
-                description: PasswordSecretRef contains the password used for the created
-                  user
+                description: PasswordSecretRef contains the password used for the
+                  created user
                 properties:
+                  generatePassword:
+                    default: false
+                    description: Generate specifies if the secret exists or the operator
+                      should generate a password and create a secret
+                    type: boolean
                   passwordKey:
                     description: PasswordKey is the name of the field in the secret
-                      containing the password
+                      containing the password If generate is false it will look after
+                      this data field, if generate=true it will be used for creation
                     type: string
                   secretName:
                     description: SecretName is the name of the secret containing the
-                      connection details
+                      connection details If generate is false it will look after this
+                      secret, if generate=true it will create a secret with this name
                     type: string
                 required:
                 - passwordKey
