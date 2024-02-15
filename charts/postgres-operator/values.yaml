@@ -12,7 +12,7 @@ controller:
   container:
     image:
       repository: europe-docker.pkg.dev/coremaker/eu.gcr.io/postgres-operator
-      tag: v1.0.9
+      tag: v1.0.10
     resources:
       limits:
         cpu: 500m
